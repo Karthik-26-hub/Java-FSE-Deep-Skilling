@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Anu 💖 FDU</title>
+
+<style>
+body {
+    margin: 0;
+    background: black;
+    font-family: Arial, sans-serif;
+    color: white;
+    text-align: center;
+    overflow: hidden;
+}
+
+/* Sections */
+.section {
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.active {
+    display: flex;
+}
+
+/* Button */
+button {
+    padding: 12px 25px;
+    font-size: 18px;
+    border-radius: 20px;
+    border: none;
+    background: #ff4081;
+    color: white;
+    cursor: pointer;
+}
+
+/* Glow */
+.glow {
+    font-size: 40px;
+    animation: glow 2s infinite alternate;
+}
+
+@keyframes glow {
+    from { text-shadow: 0 0 10px white; }
+    to { text-shadow: 0 0 30px pink; }
+}
+
+/* Typing */
+#typing {
+    width: 80%;
+    margin-top: 20px;
+    font-size: 22px;
+    white-space: pre-line;
+}
+
+/* Hearts */
+.heart {
+    position: absolute;
+    color: red;
+    font-size: 20px;
+    animation: float 5s linear infinite;
+}
+
+@keyframes float {
+    from { transform: translateY(100vh); }
+    to { transform: translateY(-10vh); opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Screen 1 -->
+<div id="s1" class="section active">
+    <h1 class="glow">💖 A Special Surprise 💖</h1>
+    <button onclick="next(1)">Start 🎁</button>
+</div>
+
+<!-- Screen 2 -->
+<div id="s2" class="section">
+    <h1 class="glow">🎂 Happy Birthday 🎂</h1>
+    <h2>💖 Anu alias FDU 💖</h2>
+    <p>(Forever --------- You)</p>
+    <button onclick="next(2)">Open Message 💌</button>
+</div>
+
+<!-- Screen 3 -->
+<div id="s3" class="section">
+    <div id="typing"></div>
+    <button onclick="next(3)">Final Surprise 🎁</button>
+</div>
+
+<!-- Screen 4 -->
+<div id="s4" class="section">
+    <h1 class="glow">💖 Forever Desiring You 💖</h1>
+    <h2>You are my today, tomorrow, and always ✨</h2>
+</div>
+
+<!-- Music -->
+<audio id="music" loop>
+<source src="https://www.bensound.com/bensound-music/bensound-love.mp3">
+</audio>
+
+<script>
+let text = `Dear Anu 💖,
+
+Happy Birthday! 🎂✨
+
+FDU ❤️  
+F - Forever  
+D - Desiring  
+U - You  
+
+Forever Desiring You...
+
+You are not just special today,
+but forever in my heart 💖`;
+
+let i = 0;
+
+/* Next screen */
+function next(n) {
+    document.getElementById("s"+n).classList.remove("active");
+    document.getElementById("s"+(n+1)).classList.add("active");
+
+    if(n === 1) {
+        document.getElementById("music").play();
+        setInterval(createHearts, 300);
+    }
+
+    if(n === 2) {
+        typeEffect();
+    }
+}
+
+/* Typing effect */
+function typeEffect() {
+    if (i < text.length) {
+        document.getElementById("typing").innerHTML += text[i];
+        i++;
+        setTimeout(typeEffect, 40);
+    }
+}
+
+/* Hearts animation */
+function createHearts() {
+    let heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "💖";
+    heart.style.left = Math.random() * 100 + "vw";
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 5000);
+}
+</script>
+
+</body>
+</html>
